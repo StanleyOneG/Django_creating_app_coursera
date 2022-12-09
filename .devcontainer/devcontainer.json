@@ -1,0 +1,46 @@
+{
+	"name": "Docker for create_app",
+	// "image": "create_app",
+	"dockerFile": "Dockerfile",
+	"context": ".",
+	"remoteUser":  "create_app",
+	
+	"runArgs": [
+		"-h",
+		"docker",
+		"--privileged",
+		"--name",
+		"django_app_devcontainer" 
+	],
+	"overrideCommand": true,
+
+	"workspaceMount": "source=${localWorkspaceFolder}/create_app,target=/srv/create_app/create_app,type=bind,consistency=delegated",
+	"workspaceFolder": "/srv/create_app",
+	// // Use this environment variable if you need to bind mount your local source code into a new container.
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "/srv/create_app"
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.defaultProfile.linux": "bash",
+		"terminal.integrated.cwd": "/srv/create_app",
+		"python3.python3Path": "/usr/local/bin/:/usr/local/bin/python3",
+        "python3.autoComplete.extraPaths": ["/usr/local/bin/python3", "/usr/local/bin/"],
+        "python3.languageServer": "Jedi"
+	},
+
+	"appPort": [ "8000:8000" ],
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		// "ms-azuretools.vscode-docker",
+		"ms-python.python"
+		// "ms-toolsai.jupyter-renderers"
+	]
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	
+
+	// "postCreateCommand": "sudo pip install --no-cache -r requirements.txt"
+}
